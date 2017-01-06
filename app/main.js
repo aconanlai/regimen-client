@@ -2,9 +2,7 @@
 
 const dog = 'hey dog';
 
-const fuh = () => {
-  return dog;
-}
+const fuh = () => dog;
 
 console.log(fuh());
 

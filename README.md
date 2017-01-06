@@ -1,4 +1,4 @@
-## regimen.online server 
+## regimen.online client 
 
 ---
 
