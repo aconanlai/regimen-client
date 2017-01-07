@@ -1,16 +1,22 @@
-// initial test for webpack babel-loader and fetch polyfilling
+window.msgs = [];
 
-const dog = 'hey dog';
+const getMsgs = (cb) => {
+  return (
+    fetch('https://regimen-server-quauxdvexe.now.sh/')
+    .then((response) => {
+      if (response.status >= 200 && response.status < 300) {
+        return Promise.resolve(response.json());
+      } else {
+        return Promise.reject(new Error(response.statusText));
+      }
+    }).then((json) => {
+      return (json);
+    }).catch((ex) => {
+      console.log('parsing failed', ex);
+    })
+  );
+};
 
-const fuh = () => dog;
-
-console.log(fuh());
-
-fetch('https://regimen-server-quauxdvexe.now.sh/')
-  .then(function(response) {
-    return response.json()
-  }).then(function(json) {
-    console.log('parsed json', json)
-  }).catch(function(ex) {
-    console.log('parsing failed', ex)
-  })
+getMsgs().then((res) => {
+  window.msgs = res;
+});
