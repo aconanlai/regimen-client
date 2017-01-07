@@ -1,4 +1,6 @@
-window.msgs = [];
+const state = {
+  msgs: [],
+};
 
 const getMsgs = (cb) => {
   return (
@@ -17,6 +19,26 @@ const getMsgs = (cb) => {
   );
 };
 
+const diffMsgs = (newMsgs) => {
+  const oldMsgs = state.msgs;
+  return oldMsgs.filter(msg => newMsgs.includes(msg));
+};
+
+const makeElem = (msg) => {
+  console.log('making element');
+  const elem = document.createElement('div');
+  elem.className = 'msg';
+  const text = document.createTextNode(msg);
+  elem.appendChild(text);
+  const target = document.getElementById('root');
+  const first = target.firstChild;
+  target.insertBefore(elem, first);
+};
+
 getMsgs().then((res) => {
-  window.msgs = res;
+  
+  const newMsgs = diffMsgs(res);
+  console.log(newMsgs);
+  newMsgs.map(msg => makeElem(msg));
+  state.msgs = state.msgs.concat(newMsgs);
 });
