@@ -4,7 +4,7 @@ const state = {
 
 const getMsgs = () => {
   return (
-    fetch('https://regimen-server-quauxdvexe.now.sh/').then((response) => {
+    fetch('https://regimen-server-ooutifygsa.now.sh/').then((response) => {
       return response.json();
     }).then((json) => {
       return json;
@@ -20,7 +20,7 @@ const diffMsgs = (newMsgs) => {
 const makeElem = (msg) => {
   const elem = document.createElement('div');
   elem.className = 'msg';
-  const text = document.createTextNode(msg.text);
+  const text = document.createTextNode(msg);
   elem.appendChild(text);
   const target = document.getElementById('root');
   const first = target.firstChild;
@@ -30,17 +30,19 @@ const makeElem = (msg) => {
 const handleNewMsgs = () => {
   return (
     getMsgs().then((res) => {
-      const newMsgs = diffMsgs(res);
+      const msgs = res.map((msg) => msg.text);
+      console.log(msgs);
+      const newMsgs = diffMsgs(msgs);
       newMsgs.map(msg => makeElem(msg));
       state.msgs = state.msgs.concat(newMsgs);
-      console.log(state.msgs);
+      console.log('new trigger');
     })
   );
 };
 
 handleNewMsgs();
 
-setTimeout(() => {
+setInterval(() => {
   handleNewMsgs();
-}, 5000);
+}, 1000);
 
