@@ -1,8 +1,10 @@
+// use state object to store application state
 const state = {
   msgs: [],
 };
 
-const getMsgs = () => {
+// promise returns all msgs
+const fetchMsgs = () => {
   return (
     fetch('https://regimen-server-ooutifygsa.now.sh/').then((response) => {
       return response.json();
@@ -12,11 +14,14 @@ const getMsgs = () => {
   );
 };
 
+// takes in all msgs from fetch and returns only new messages
+// not already in state.msgs
 const diffMsgs = (newMsgs) => {
   const oldMsgs = state.msgs;
   return newMsgs.filter(msg => oldMsgs.indexOf(msg) === -1);
 };
 
+// create DOM element - div with text
 const makeElem = (msg) => {
   const elem = document.createElement('div');
   elem.className = 'msg';
@@ -27,22 +32,25 @@ const makeElem = (msg) => {
   target.insertBefore(elem, first);
 };
 
-const handleNewMsgs = () => {
+// fetch messages, extract text from response, find new messages
+// create elements for new messages
+// then update state
+const processNewMsgs = () => {
   return (
-    getMsgs().then((res) => {
-      const msgs = res.map((msg) => msg.text);
-      console.log(msgs);
+    fetchMsgs().then((res) => {
+      const msgs = res.map(msg => msg.text);
       const newMsgs = diffMsgs(msgs);
       newMsgs.map(msg => makeElem(msg));
       state.msgs = state.msgs.concat(newMsgs);
-      console.log('new trigger');
     })
   );
 };
 
-handleNewMsgs();
+// call first time to populate initial page paint
+processNewMsgs();
 
+// then repeat every x seconds
 setInterval(() => {
-  handleNewMsgs();
+  processNewMsgs();
 }, 1000);
 
