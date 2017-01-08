@@ -2,43 +2,45 @@ const state = {
   msgs: [],
 };
 
-const getMsgs = (cb) => {
+const getMsgs = () => {
   return (
-    fetch('https://regimen-server-quauxdvexe.now.sh/')
-    .then((response) => {
-      if (response.status >= 200 && response.status < 300) {
-        return Promise.resolve(response.json());
-      } else {
-        return Promise.reject(new Error(response.statusText));
-      }
+    fetch('https://regimen-server-quauxdvexe.now.sh/').then((response) => {
+      return response.json();
     }).then((json) => {
-      return (json);
-    }).catch((ex) => {
-      console.log('parsing failed', ex);
+      return json;
     })
   );
 };
 
 const diffMsgs = (newMsgs) => {
   const oldMsgs = state.msgs;
-  return oldMsgs.filter(msg => newMsgs.includes(msg));
+  return newMsgs.filter(msg => oldMsgs.indexOf(msg) === -1);
 };
 
 const makeElem = (msg) => {
-  console.log('making element');
   const elem = document.createElement('div');
   elem.className = 'msg';
-  const text = document.createTextNode(msg);
+  const text = document.createTextNode(msg.text);
   elem.appendChild(text);
   const target = document.getElementById('root');
   const first = target.firstChild;
   target.insertBefore(elem, first);
 };
 
-getMsgs().then((res) => {
-  
-  const newMsgs = diffMsgs(res);
-  console.log(newMsgs);
-  newMsgs.map(msg => makeElem(msg));
-  state.msgs = state.msgs.concat(newMsgs);
-});
+const handleNewMsgs = () => {
+  return (
+    getMsgs().then((res) => {
+      const newMsgs = diffMsgs(res);
+      newMsgs.map(msg => makeElem(msg));
+      state.msgs = state.msgs.concat(newMsgs);
+      console.log(state.msgs);
+    })
+  );
+};
+
+handleNewMsgs();
+
+setTimeout(() => {
+  handleNewMsgs();
+}, 5000);
+
