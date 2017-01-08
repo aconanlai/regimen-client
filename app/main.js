@@ -56,7 +56,8 @@ setInterval(() => {
 
 // form handlers
 
-const handleSubmit = () => {
+const handleSubmit = (event) => {
+  event.preventDefault();
   fetch('https://regimen-server-zeaktioidb.now.sh/', {
     method: 'POST',
     headers: new Headers({
@@ -69,9 +70,9 @@ const handleSubmit = () => {
     return response.json();
   }).then((json) => {
     document.getElementById('userinput').value = '';
-    return json;
+    return false;
   });
 };
 
-const submitbutton = document.getElementById('submitbutton');
-submitbutton.addEventListener('click', handleSubmit, false);
+const userform = document.getElementById('userform');
+userform.addEventListener('submit', e => handleSubmit(e), false);
