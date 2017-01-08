@@ -24,12 +24,13 @@ const diffMsgs = (newMsgs) => {
 // create DOM element - div with text
 const makeElem = (msg) => {
   const elem = document.createElement('div');
-  elem.className = 'msg';
+  elem.className += 'msg';
   const text = document.createTextNode(msg);
   elem.appendChild(text);
   const target = document.getElementById('msgs');
   const first = target.firstChild;
   target.insertBefore(elem, first);
+  elem.className += ' fade';
 };
 
 // fetch messages, extract text from response, find new messages
