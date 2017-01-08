@@ -6,7 +6,7 @@ const state = {
 // promise returns all msgs
 const fetchMsgs = () => {
   return (
-    fetch('https://regimen-server-ooutifygsa.now.sh/').then((response) => {
+    fetch('https://regimen-server-zeaktioidb.now.sh/').then((response) => {
       return response.json();
     }).then((json) => {
       return json;
@@ -27,7 +27,7 @@ const makeElem = (msg) => {
   elem.className = 'msg';
   const text = document.createTextNode(msg);
   elem.appendChild(text);
-  const target = document.getElementById('root');
+  const target = document.getElementById('msgs');
   const first = target.firstChild;
   target.insertBefore(elem, first);
 };
@@ -54,3 +54,24 @@ setInterval(() => {
   processNewMsgs();
 }, 1000);
 
+// form handlers
+
+const handleSubmit = () => {
+  fetch('https://regimen-server-zeaktioidb.now.sh/', {
+    method: 'POST',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+    body: JSON.stringify({
+      text: document.getElementById('userinput').value,
+    }),
+  }).then((response) => {
+    return response.json();
+  }).then((json) => {
+    document.getElementById('userinput').value = '';
+    return json;
+  });
+};
+
+const submitbutton = document.getElementById('submitbutton');
+submitbutton.addEventListener('click', handleSubmit, false);

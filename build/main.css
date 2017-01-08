@@ -1,0 +1,15 @@
+.inputcontainer {
+  width: 100%;
+  background: yellow;
+  text-align: center;
+}
+
+#userinput {
+  margin: 0 auto;
+  margin: 20px;
+  font-size: 60px;
+}
+
+#submitbutton {
+  padding: 10px;
+}
