@@ -22,13 +22,12 @@ html, body {
 #userinput {
   width: 100%;
   margin-top: 40px;
-  padding: 15px;
   font-size: 60px;
 }
 
 #submitholder {
+  margin-top: 15px;
   float: right;
-  padding: 40px;
 }
 
 #submitbutton {
@@ -40,10 +39,10 @@ html, body {
 }
 
 #msgs {
-  width: 700px;
+  width: 50%;
   left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%);
+  margin-right: -50%;
+  transform: translate(-50%);
   position: absolute;
   margin-top: 250px;
 }
