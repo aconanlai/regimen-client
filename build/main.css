@@ -1,10 +1,54 @@
-.inputcontainer {
+html, body {
+  height: 100%;
   width: 100%;
+}
+
+.header {
+  width: 100%;
+  background: white;
+  position: fixed;
+  z-index:9;
+}
+
+.inputcontainer {
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  width: 60%;
   text-align: center;
+  height:250px;
+}
+
+#userinput {
+  width: 100%;
+  margin-top: 40px;
+  padding: 15px;
+  font-size: 60px;
+}
+
+#submitholder {
+  float: right;
+  padding: 40px;
+}
+
+#submitbutton {
+  padding: 5px;
+}
+
+#clear {
+  clear: both;
+}
+
+#msgs {
+  width: 700px;
+  left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%);
+  position: absolute;
+  margin-top: 250px;
 }
 
 .msg {
-  display: inline;
   opacity: 0;
   padding: 10px;
   font-size: 40px;
@@ -27,14 +71,4 @@
 }@keyframes fade {
     from {opacity: 0}
     to {opacity: 1}
-}
-
-#userinput {
-  margin: 0 auto;
-  margin: 20px;
-  font-size: 60px;
-}
-
-#submitbutton {
-  padding: 10px;
 }
